@@ -10,13 +10,12 @@ Green Car/
 │   ├── 01-scope.md
 │   ├── 02-features.md
 │   ├── 03-use-cases.md
+│   ├── 04-information-architecture.md
 │   ├── 05-data-model.md
 │   ├── 06-acceptance-criteria.md
 │   ├── 07-folder-structure.md
 │   ├── 08-invest-requirements.md
 │   ├── DATABASE.md
-│   ├── features.md
-│   ├── information-architecture.md
 │   ├── requirements/
 │   │   ├── business-rules.md
 │   │   └── non-functional-requirements.md
@@ -25,9 +24,16 @@ Green Car/
 │   ├── architecture/
 │   │   └── c4/
 │   │       └── README.md
-│   └── traceability/
-│       └── matrix.md
-└── Slide AI Agent xu ly khieu nai Green Car.pptx
+│   ├── traceability/
+│   │   └── matrix.md
+│   ├── images/
+│   │   ├── dashboard.png
+│   │   └── login.png
+│   ├── mindmap.png
+│   └── AI Agent for complaint handling.pptx
+└── src/
+    ├── backend/
+    └── frontend/
 ```
 
 Target Green Car backend layout:
