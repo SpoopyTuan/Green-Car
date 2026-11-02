@@ -395,7 +395,16 @@ sequenceDiagram
 - Sequence diagrams: intake, categorization, handling, driver complaint, evidence extraction, CSKH review, send response, audit.
 
 ## Documentation
-Documentation lives in the `docs/` folder of the project. See the Green Car repository for full details.
+
+Documentation lives in the `docs/` folder of the project.
+
+- Requirements: [Scope](docs/01-scope.md), [Features](docs/02-features.md), [INVEST backlog](docs/08-invest-requirements.md), [Acceptance criteria](docs/06-acceptance-criteria.md)
+- Requirements catalogs: [Business rules](docs/requirements/business-rules.md), [Non-functional requirements](docs/requirements/non-functional-requirements.md)
+- UI/UX: [Information architecture](docs/04-information-architecture.md)
+- Database: [Data model](docs/05-data-model.md), [ER diagram](docs/DATABASE.md)
+- Folder structure: [React and three-tier backend](docs/07-folder-structure.md)
+- API contract: [OpenAPI 3.0.4 specification](docs/api/openapi.yaml)
+- Traceability: [Master traceability matrix](docs/traceability/matrix.md)
 
 ## Project Progress
 - [x] Define scope, goals, and roles
