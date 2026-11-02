@@ -1,0 +1,262 @@
+openapi: 3.0.4
+info:
+  title: Green Car API
+  version: 1.0.0
+  description: Complaint management API for Green Car.
+servers:
+  - url: http://localhost:8000
+paths:
+  /api/v1/auth/login:
+    post:
+      summary: Login
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/auth/logout:
+    post:
+      summary: Logout
+      operationId: logout
+      responses:
+        '200':
+          description: OK
+  /api/v1/dashboard:
+    get:
+      summary: Get dashboard
+      operationId: getDashboard
+      responses:
+        '200':
+          description: OK
+  /api/v1/cases:
+    get:
+      summary: List cases
+      operationId: listCases
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Create case
+      operationId: createCase
+      responses:
+        '201':
+          description: Created
+  /api/v1/cases/{id}:
+    get:
+      summary: Get case
+      operationId: getCase
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+    put:
+      summary: Update case
+      operationId: updateCase
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: Soft delete case
+      operationId: softDeleteCase
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+  /api/v1/cases/{id}/attachments:
+    post:
+      summary: Upload attachment
+      operationId: uploadAttachment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Created
+  /api/v1/cases/{case_id}/attachments/{attachment_id}:
+    delete:
+      summary: Delete attachment
+      operationId: deleteAttachment
+      parameters:
+        - name: case_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: attachment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+  /api/v1/driver-statements:
+    post:
+      summary: Create driver statement
+      operationId: createStatement
+      responses:
+        '201':
+          description: Created
+  /api/v1/imports:
+    post:
+      summary: Preview import
+      operationId: previewImport
+      responses:
+        '200':
+          description: OK
+  /api/v1/imports/{id}:
+    post:
+      summary: Create import
+      operationId: createImport
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Created
+  /api/v1/imports:
+    get:
+      summary: List imports
+      operationId: listImports
+      responses:
+        '200':
+          description: OK
+  /api/v1/imports/{id}:
+    get:
+      summary: Get import
+      operationId: getImport
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+  /api/v1/reports:
+    get:
+      summary: Get report
+      operationId: getReport
+      responses:
+        '200':
+          description: OK
+  /api/v1/reports/export:
+    post:
+      summary: Export report
+      operationId: exportReport
+      responses:
+        '200':
+          description: OK
+  /api/v1/audit-logs:
+    get:
+      summary: List audit logs
+      operationId: listAuditLogs
+      responses:
+        '200':
+          description: OK
+  /api/v1/users:
+    get:
+      summary: List users
+      operationId: listUsers
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Create user
+      operationId: createUser
+      responses:
+        '201':
+          description: Created
+  /api/v1/users/{id}:
+    put:
+      summary: Update user
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+    patch:
+      summary: Update user status
+      operationId: updateUserStatus
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+  /api/v1/profile:
+    get:
+      summary: Get profile
+      operationId: getProfile
+      responses:
+        '200':
+          description: OK
+    put:
+      summary: Update profile
+      operationId: updateProfile
+      responses:
+        '200':
+          description: OK
+  /api/v1/profile/password:
+    post:
+      summary: Change password
+      operationId: changePassword
+      responses:
+        '200':
+          description: OK
+  /health/ready:
+    get:
+      summary: Health check
+      operationId: healthReady
+      responses:
+        '200':
+          description: OK
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
