@@ -62,7 +62,7 @@ flowchart LR
 |---|---|---|
 | `user_role` | ADMIN, CSKH, CUSTOMER, DRIVER | Administrator, CSKH, Customer, Driver |
 | `case_source` | APP, CALL, EMAIL | App, Call, Email |
-| `case_status` | Intake, Categorization, In Progress, Resolved, Closed | Case status |
+| `case_status` | Intake, Categorization, Initial handling, Driver statement, Evidence, CSKH review, Resolved, Closed | Case status |
 | `case_severity` | Low, Medium, High, Critical | Severity |
 | `import_status` | PENDING, PROCESSING, COMPLETED, FAILED | Import-batch status |
 | `audit_action` | CREATE, UPDATE, SOFT_DELETE, RESTORE, LOGIN, EXPORT, IMPORT | Audit log action |

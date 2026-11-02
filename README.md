@@ -397,22 +397,28 @@ sequenceDiagram
 ## Documentation
 Documentation lives in the `docs/` folder of the project. See the Green Car repository for full details.
 
-## Project Progress (early stage)
+## Project Progress
 - [x] Define scope, goals, and roles
 - [x] Write feature list and use cases
-- [ ] Write user stories following INVEST
-- [ ] Write acceptance criteria and business rules
-- [ ] Design information architecture and screen permissions
-- [ ] Design C4 and arc42 documentation
-- [ ] Design PostgreSQL schema, DBML, and relationships
-- [ ] Write API documentation in OpenAPI 3.0
+- [x] Write user stories following INVEST
+- [x] Write acceptance criteria and business rules
+- [x] Write non-functional requirements
+- [x] Design information architecture and screen permissions
+- [x] Design C4 System Context, Container, Component diagrams
+- [x] Design PostgreSQL schema, tables, and relationships
+- [x] Write API documentation in OpenAPI 3.0
+- [x] Design backend folder structure
 - [ ] Design React frontend folder structure
-- [ ] Design three-tier backend folder structure
 - [ ] Design class diagrams and sequence diagrams
-- [ ] Create traceability between requirements, screens, API, and database
+- [x] Create traceability between requirements, screens, API, and database
 - [ ] Build the three-tier backend
 - [ ] Build authentication, user management, and personal profile API
 - [ ] Implement case CRUD API
+- [ ] Implement AI agent / LangGraph integration (intake, categorization, evidence extraction)
+- [ ] Implement Policy RAG (US16)
+- [ ] Implement SLA monitoring and notifications (US17)
+- [ ] Implement IMAP email complaint ingestion (US07)
+- [ ] Implement Stringee Telephony integration for call complaints
 - [ ] Complete dashboard, reports, import, attachments, and audit API
 - [ ] Write unit tests and API integration tests
 - [ ] Connect React frontend to the API
