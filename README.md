@@ -47,10 +47,10 @@ flowchart TB
 
     subgraph system["Green Car — System Boundary"]
         direction LR
-        adminCases["UC01 Login · UC02 Logout · UC03 Dashboard · UC13 Audit · UC14 Users · UC15 Profile"]
-        cskhCases["UC01-02 · UC03 · UC11 Reports · UC13 Audit · UC15 · UC04-09 Cases · UC10 Import"]
-        customerCases["UC01-02 · UC03 · UC04-07 Own cases · UC15"]
-        driverCases["UC01-02 · UC03 · UC08-09 Own statements · UC15"]
+        adminCases["UC01 Login<br/>UC02 Logout<br/>UC03 Dashboard<br/>UC13 Audit<br/>UC14 Users<br/>UC15 Profile"]
+        cskhCases["UC01-02<br/>UC03<br/>UC11 Reports<br/>UC13 Audit<br/>UC15<br/>UC04-09 Cases<br/>UC10 Import"]
+        customerCases["UC01-02<br/>UC03<br/>UC04-07 Own cases<br/>UC15"]
+        driverCases["UC01-02<br/>UC03<br/>UC08-09 Own statements<br/>UC15"]
     end
 
     admin --> adminCases
