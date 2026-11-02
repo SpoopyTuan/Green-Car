@@ -59,7 +59,7 @@ flowchart TB
     driver --> driverCases
 ```
 
-Roles: Admin, CSKH, Customer, Driver. Flow: App/Call/Email → case → statement → evidence → CSKH review → send result → CLOSED.
+For detailed actors, permissions, and business flows, see [Actors, roles, and use cases](docs/03-use-cases.md).
 
 ### 1.4 Roles and permissions
 
@@ -99,6 +99,7 @@ Authenticated
 
 ### 2.2 Screen hierarchy
 Login → authenticated shell → feature pages; interactions use modals. Unauthorized navigation → Forbidden.
+Detailed screen IDs, user flows, screen states, accessibility rules, and API mappings are maintained in [Information Architecture](docs/04-information-architecture.md).
 
 ### 2.3 UI prototype
 
@@ -289,11 +290,28 @@ erDiagram
 ```
 
 See the [detailed database diagram](docs/DATABASE.md), [data model](docs/05-data-model.md),
+and [traceability matrix](docs/traceability/matrix.md).
 
 ### 4.2 OpenAPI 3.0 API documentation
 
+[](#42-openapi-30-api-documentation)
 
+The HTTP contract is defined with OpenAPI 3.0.4 and organized into Authentication, Dashboard, Cases, Driver Statements, Evidence, Reports, Imports, Audit, Users, and Profile.
 
+```
+18 paths
+26 operations
+Bearer JWT security
+Role-based access (ADMIN, CSKH, CUSTOMER, DRIVER)
+JSON request/response contracts
+Reusable request/response schemas
+Application error responses
+Request, success, and error examples
+```
+
+Every operation has a stable `operationId`, documented parameters, request and response schemas, success/error status codes, and target authorization rules. The contract is a design source of truth; the backend runtime has not been implemented yet.
+
+- [OpenAPI 3.0.4 specification](docs/api/openapi.yaml)
 
 ## 5. Folder structure
 
