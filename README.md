@@ -44,13 +44,15 @@ flowchart TB
         customer(["Customer"])
         driver(["Driver"])
     end
+
     subgraph system["Green Car — System Boundary"]
         direction LR
-        adminCases["Admin: UC01 Login · UC02 Logout · UC03 Dashboard · UC13 Audit · UC14 Users · UC15 Profile"]
-        cskhCases["CSKH: UC01-02 · UC03 · UC11 Reports · UC13 Audit · UC15 · UC04-09 Cases · UC10 Import"]
-        customerCases["Customer: UC01-02 · UC03 · UC04-07 Own cases · UC15"]
-        driverCases["Driver: UC01-02 · UC03 · UC08-09 Own statements · UC15"]
+        adminCases["UC01 Login · UC02 Logout · UC03 Dashboard · UC13 Audit · UC14 Users · UC15 Profile"]
+        cskhCases["UC01-02 · UC03 · UC11 Reports · UC13 Audit · UC15 · UC04-09 Cases · UC10 Import"]
+        customerCases["UC01-02 · UC03 · UC04-07 Own cases · UC15"]
+        driverCases["UC01-02 · UC03 · UC08-09 Own statements · UC15"]
     end
+
     admin --> adminCases
     cskh --> cskhCases
     customer --> customerCases
