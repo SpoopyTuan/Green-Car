@@ -60,7 +60,7 @@ Auth | Mock authentication.
 Excel Import | UI + mock flow. File contents not read.
 Attachments | Select local file, store name/type/size. No upload.
 
-An executable backend baseline exists. Frontend integration and production-grade import, attachment, audit, and operational hardening remain out of the completed baseline.
+No executable backend baseline exists yet. Frontend integration, production-grade import, attachment, audit, and operational hardening remain to be built.
 
 ## Target V1 architecture
 

@@ -22,14 +22,18 @@ Complaint management system for a transport company: receiving customer complain
 ```
 US01–US02   Authentication and session
 US03        Dashboard
-US04–US06   Complaint intake (App/Call/Email)
-US07–US09   Driver statements and evidence
+US04        View cases
+US05        Complaint intake (App)
+US06        Complaint intake (Call)
+US07        Complaint intake (Email)
+US08        Driver statement
+US09        Evidence & attachments
 US10        Import Excel
 US11–US12   Reports and export
 US13        Audit log
 US14        User management
-US15        Personal profile and password
-US16        Policy RAG and evaluation
+US15        Personal profile
+US16        Policy RAG
 US17        SLA and notifications
 ```
 
@@ -210,7 +214,8 @@ erDiagram
         varchar email
         varchar password_hash
         varchar full_name
-        varchar role
+        varchar phone
+        user_role role
         boolean is_active
         timestamptz created_at
         timestamptz deleted_at

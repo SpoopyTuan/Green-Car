@@ -25,8 +25,8 @@ Each US maps to: screen, API operation, DB table, C4 component, module, verifica
 | US13 | UC13 | AC-UC13 | SCR-60 | Audit Log | `listAuditLogs` | `audit_logs` | Audit; read | `INT-AUDIT-001`, `SEC-AUDIT-002` PLANNED |
 | US14 | UC14 | AC-UC14 | SCR-70 | User & Profile | `listUsers`, `createUser`, `updateUser`, `updateUserStatus` | `app_users`, `audit_logs` | Users | `INT-RBAC-ADMIN-001`, `INT-USERS-001` PLANNED |
 | US15 | UC15 | AC-UC15 | SCR-80 | User & Profile | `getProfile`, `updateProfile`, `changePassword` | `app_users`, `audit_logs` | Profile | `INT-PROFILE-001`, `INT-AUTH-003` PLANNED |
-| US16 | UC16 | AC-UC16 | System retrieval | Policy RAG | rag retrieval | `policy_versions`, `policy_chunks` | RAG; S11 | `INT-RAG-001` PLANNED |
-| US17 | UC17 | AC-UC17 | System/CSKH SLA monitoring | SLA & Notifications | sla monitoring | `sla`, `notifications`, `audit_logs` | SLA; S12 | `INT-SLA-001`, `INT-NOTIF-001` PLANNED |
+| US16 | UC16 | AC-UC16 | System retrieval | Policy RAG | n/a (system process) | `policy_versions`, `policy_chunks` | RAG; S11 | `INT-RAG-001` PLANNED |
+| US17 | UC17 | AC-UC17 | System/CSKH SLA monitoring | SLA & Notifications | n/a (system process) | `sla`, `notifications`, `audit_logs` | SLA; S12 | `INT-SLA-001`, `INT-NOTIF-001` PLANNED |
 
 ## Quality/NFR traceability
 

@@ -2,9 +2,11 @@
 
 > Design status: TARGET V1
 
-PostgreSQL 16 + pgvector. 29 tables. Money in USD. Soft delete via `deleted_at`.
+PostgreSQL 16 + pgvector. 11 tables. Money in USD. Soft delete via `deleted_at`.
 
 ## Core tables
+
+The tables below are the concise schema summary. For detailed column definitions (including `updated_at`, file metadata, audit fields, and RAG fields), see [docs/DATABASE.md](DATABASE.md).
 
 ### app_users
 | Column | Type | Notes |
@@ -13,6 +15,7 @@ PostgreSQL 16 + pgvector. 29 tables. Money in USD. Soft delete via `deleted_at`.
 | email | varchar | unique |
 | password_hash | varchar | PBKDF2 |
 | full_name | varchar | |
+| phone | varchar | |
 | role | enum | ADMIN, CSKH, CUSTOMER, DRIVER |
 | is_active | boolean | |
 | created_at | timestamptz | |
@@ -53,8 +56,6 @@ PostgreSQL 16 + pgvector. 29 tables. Money in USD. Soft delete via `deleted_at`.
 |---|---|---|
 | id | bigint PK | |
 | case_id | bigint FK | cases |
-| income_id | bigint FK | legacy column; no incomes table in V1 |
-| expense_id | bigint FK | legacy column; no expenses table in V1 |
 | uploaded_by | bigint FK | app_users |
 
 ### import_batches
