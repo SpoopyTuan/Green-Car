@@ -204,8 +204,6 @@ erDiagram
     cases ||--o{ attachments : has
     import_batches ||--o{ cases : contains
     policy_versions ||--o{ policy_chunks : chunks
-    app_users ||--o{ notifications : user
-    cases ||--o{ sla : case
 
     app_users {
         bigint id PK
@@ -244,8 +242,6 @@ erDiagram
     attachments {
         bigint id PK
         bigint case_id FK
-        bigint income_id FK
-        bigint expense_id FK
         bigint uploaded_by FK
     }
     import_batches {
@@ -274,27 +270,12 @@ erDiagram
         text content
         vector embedding
     }
-    notifications {
-        bigint id PK
-        bigint user_id FK
-        text message
-        boolean read
-        timestamptz created_at
-    }
-    sla {
-        bigint id PK
-        bigint case_id FK
-        timestamptz deadline
-        varchar status
-    }
 ```
 
 See the [detailed database diagram](docs/DATABASE.md), [data model](docs/05-data-model.md),
 and [traceability matrix](docs/traceability/matrix.md).
 
 ### 4.2 OpenAPI 3.0 API documentation
-
-[](#42-openapi-30-api-documentation)
 
 The HTTP contract is defined with OpenAPI 3.0.4 and organized into Authentication, Dashboard, Cases, Driver Statements, Evidence, Reports, Imports, Audit, Users, and Profile.
 
@@ -369,7 +350,7 @@ src/
 
 ## 6. Detailed Class and Sequence Design
 
-### Case lifecycle sequence
+### 6.1 Case lifecycle sequence
 
 ```mermaid
 sequenceDiagram
@@ -391,8 +372,223 @@ sequenceDiagram
     API-->>K: CLOSED
 ```
 
-- Class diagrams: Auth, Case, Driver Statement, Evidence, Import, Reporting, Audit, RAG.
-- Sequence diagrams: intake, categorization, handling, driver complaint, evidence extraction, CSKH review, send response, audit.
+### 6.2 Core class diagrams
+
+#### Authentication
+
+```mermaid
+classDiagram
+    direction TB
+    class AuthController {
+        +login() Response
+        +logout() Response
+    }
+    class LoginRequest {
+        +string email
+        +string password
+    }
+    class LoginResponse {
+        +string accessToken
+        +string tokenType
+        +DateTime expiresAt
+        +UserResponse user
+    }
+    class UserResponse {
+        +long id
+        +string email
+        +string fullName
+        +UserRole role
+    }
+    class IAuthService {
+        <<interface>>
+        +login(email, password) TokenResult
+        +logout(userId) void
+    }
+    class AuthService
+    class TokenResult {
+        +string accessToken
+        +DateTime expiresAt
+    }
+    class AuthResult {
+        +string accessToken
+        +DateTime expiresAt
+        +AppUser user
+    }
+    class AppUser {
+        +long id
+        +string email
+        +string passwordHash
+        +string fullName
+        +UserRole role
+        +boolean isActive
+        +DateTime? deletedAt
+    }
+    class IUserRepository {
+        <<interface>>
+        +findByEmail(email) AppUser
+        +updateLastLogin(userId) void
+    }
+    class ITokenIssuer {
+        <<interface>>
+        +issue(user) TokenResult
+    }
+    class IAuditLogRepository {
+        <<interface>>
+        +add(entry) void
+    }
+    class UserRepository
+    class PasswordHasher
+    class JwtTokenIssuer
+    class AuditLogRepository
+
+    AuthController --> LoginRequest
+    AuthController --> LoginResponse
+    AuthController --> IAuthService
+    AuthService ..|> IAuthService
+    AuthService --> IUserRepository
+    AuthService --> IPasswordHasher
+    AuthService --> ITokenIssuer
+    AuthService --> IAuditLogRepository
+    AuthService --> AuthResult
+    AuthResult --> AppUser
+    UserRepository ..|> IUserRepository
+    PasswordHasher ..|> IPasswordHasher
+    JwtTokenIssuer ..|> ITokenIssuer
+    AuditLogRepository ..|> IAuditLogRepository
+```
+
+#### Case
+
+```mermaid
+classDiagram
+    direction TB
+    class CaseController {
+        +listCases() CaseResponse list
+        +getCase(id) CaseResponse
+        +createCase(request) CaseResponse
+        +updateCase(id, request) CaseResponse
+        +softDeleteCase(id) void
+    }
+    class CaseResponse {
+        +long id
+        +string source
+        +string status
+        +string severity
+        +DateTime createdAt
+    }
+    class ICaseService {
+        <<interface>>
+        +listCases(context) CaseResponse list
+        +getCase(id, context) CaseResponse
+        +createCase(draft, context) CaseResponse
+        +updateCase(id, draft, context) CaseResponse
+        +softDeleteCase(id, context) void
+    }
+    class CaseService
+    class CasePolicy {
+        +ensureCanCreate(context) void
+        +ensureCanUpdate(context, case) void
+        +ensureCanDelete(context, case) void
+    }
+    class CaseValidator {
+        +validate(draft) ValidationResult
+    }
+    class ValidationResult {
+        +boolean valid
+        +list errors
+    }
+    class Case {
+        +long id
+        +string source
+        +string status
+        +string severity
+        +long createdBy
+        +DateTime createdAt
+        +DateTime? deletedAt
+        +softDelete(userId, time) void
+    }
+    class CaseDraft
+    class ActorContext {
+        +long userId
+        +UserRole role
+    }
+    class ICaseRepository {
+        <<interface>>
+        +listCases() Case list
+        +findActive(id) Case
+        +add(case) void
+        +update(case) void
+    }
+    class CaseRepository
+
+    CaseController --> CaseResponse
+    CaseController --> ICaseService
+    CaseService ..|> ICaseService
+    CaseService --> CasePolicy
+    CaseService --> CaseValidator
+    CaseService --> ICaseRepository
+    CaseService --> Case
+    CaseService --> CaseDraft
+    CasePolicy --> ActorContext
+    CasePolicy --> Case
+    CaseValidator --> CaseDraft
+    CaseValidator --> ValidationResult
+    CaseRepository ..|> ICaseRepository
+```
+
+#### Driver Statement & Evidence
+
+```mermaid
+classDiagram
+    direction TB
+    class StatementController {
+        +createStatement(request) StatementResponse
+    }
+    class EvidenceController {
+        +uploadEvidence(request) EvidenceResponse
+    }
+    class DriverStatement {
+        +long id
+        +long caseId
+        +long driverId
+        +string statement
+        +DateTime createdAt
+    }
+    class Evidence {
+        +long id
+        +long caseId
+        +long uploadedBy
+        +string filePath
+        +DateTime createdAt
+    }
+    class IStatementRepository {
+        <<interface>>
+        +add(statement) void
+    }
+    class IEvidenceRepository {
+        <<interface>>
+        +add(evidence) void
+    }
+
+    StatementController --> DriverStatement
+    EvidenceController --> Evidence
+```
+
+### 6.3 Sequence diagrams
+
+- **Intake** — Customer submits complaint → API → AI Agent categorizes → Case created
+- **Categorization** — AI Agent classifies group, looks up trip, assesses severity
+- **Handling** — Driver submits statement + evidence → AI aggregates & cross-checks → AI proposes handling direction
+- **Driver complaint** — Driver submits statement → linked to case → CSKH notified
+- **Evidence extraction** — AI extracts evidence details → confidence score → flagged for review if low
+- **CSKH review** — CSKH reviews AI proposal → approves, edits, or rejects → sends response
+- **Send response** — Approved response sent via SMTP to customer → case marked CLOSED
+- **Audit** — Every create/update/delete/login/import/export written to audit_logs
+
+### 6.4 Remaining design
+
+Class diagrams for Reporting, Import, Audit, and RAG modules, plus additional sequence diagrams for import validation, report generation, and notification flows, are planned but not yet documented.
+
 
 ## Documentation
 
@@ -418,7 +614,7 @@ Documentation lives in the `docs/` folder of the project.
 - [x] Write API documentation in OpenAPI 3.0
 - [x] Design backend folder structure
 - [ ] Design React frontend folder structure
-- [ ] Design class diagrams and sequence diagrams
+- [x] Design class diagrams and sequence diagrams
 - [x] Create traceability between requirements, screens, API, and database
 - [ ] Build the three-tier backend
 - [ ] Build authentication, user management, and personal profile API

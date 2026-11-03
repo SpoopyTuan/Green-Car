@@ -46,12 +46,12 @@ Each requirement is small enough to implement and test independently. Cross-cutt
 | US01 | TODO | TODO | TODO | TODO | TODO | TODO | Authentication not yet implemented. |
 | US02 | TODO | TODO | TODO | TODO | TODO | TODO | Logout not yet implemented. |
 | US03 | TODO | TODO | TODO | TODO | TODO | TODO | Dashboard not yet implemented. |
-| US04 | TODO | TODO | TODO | TODO | TODO | TODO | Case intake not yet implemented. |
-| US05 | TODO | TODO | TODO | TODO | TODO | TODO | Call intake not yet implemented. |
-| US06 | TODO | TODO | TODO | TODO | TODO | TODO | Email intake not yet implemented. |
-| US07 | TODO | TODO | TODO | TODO | TODO | TODO | Driver statement not yet implemented. |
-| US08 | TODO | TODO | TODO | TODO | TODO | TODO | Evidence not yet implemented. |
-| US09 | TODO | TODO | TODO | TODO | TODO | TODO | Attachments not yet implemented. |
+| US04 | TODO | TODO | TODO | TODO | TODO | TODO | View cases not yet implemented. |
+| US05 | TODO | TODO | TODO | TODO | TODO | TODO | Submit complaint (App) not yet implemented. |
+| US06 | TODO | TODO | TODO | TODO | TODO | TODO | Submit complaint (Call) not yet implemented. |
+| US07 | TODO | TODO | TODO | TODO | TODO | TODO | Ingest email complaint not yet implemented. |
+| US08 | TODO | TODO | TODO | TODO | TODO | TODO | Driver statement not yet implemented. |
+| US09 | TODO | TODO | TODO | TODO | TODO | TODO | Attach evidence not yet implemented. |
 | US10 | TODO | TODO | TODO | TODO | TODO | TODO | Import not yet implemented. |
 | US11 | TODO | TODO | TODO | TODO | TODO | TODO | Reports not yet implemented. |
 | US12 | TODO | TODO | TODO | TODO | TODO | TODO | Export not yet implemented. |

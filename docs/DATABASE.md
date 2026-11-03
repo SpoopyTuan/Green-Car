@@ -6,7 +6,7 @@
 
 PostgreSQL schema `green_car` for **Green Car**.
 
-The interface uses **mock data** aligned with this model (tables, complaint cases, driver statements, evidence, attachments, soft delete, currency). The interface **does not connect** to PostgreSQL.
+The interface uses **mock data** aligned with this model (tables, complaint cases, driver statements, evidence, attachments, soft delete). The interface **does not connect** to PostgreSQL.
 
 Design files: [05-data-model.md](05-data-model.md)
 
@@ -69,7 +69,7 @@ flowchart LR
 
 ## Views (report aggregates)
 
-Views are **not stored tables**. They read active case records and aggregate by day / month / category / severity. In V1, `currency_code` is always `USD`; no foreign currency conversion.
+Views are **not stored tables**. They read active case records and aggregate by day / month / category / severity.
 
 ```mermaid
 flowchart LR
@@ -134,8 +134,6 @@ erDiagram
   attachments {
     bigint id PK
     bigint case_id FK
-    bigint income_id FK
-    bigint expense_id FK
     varchar original_name
     bigint file_size
     varchar mime_type
@@ -221,7 +219,7 @@ erDiagram
   policy_versions ||--o{ policy_chunks : version
 ```
 
-Each attachment references exactly one parent through the SQL check constraint, while one case may own zero or many attachment rows.
+Each attachment belongs to exactly one case, while one case may own zero or many attachment rows.
 
 ## Audit security constraint
 
